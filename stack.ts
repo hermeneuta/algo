@@ -32,7 +32,10 @@ class Linter {
 
   lint(text: string) {
     for (const el of text) {
-      if (el === "H" || el === "l") this.stack.insert(el);
+      const openBrackets = ["(", "[", "{"];
+      const isOpen = openBrackets.some((check) => el.includes(check));
+
+      if (isOpen) this.stack.insert(el);
       console.log(this.stack);
     }
   }
@@ -40,4 +43,4 @@ class Linter {
 
 const code = new Linter();
 
-code.lint("Hello");
+code.lint("(He[ll[o");
