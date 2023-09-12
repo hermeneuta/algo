@@ -16,8 +16,8 @@ class Stack<T> {
     this.stack = [];
   }
 
-  isEmpty(): boolean {
-    return this.stack.length === 0;
+  length(): number {
+    return this.stack.length;
   }
 
   insert(item: T): void {
@@ -54,27 +54,28 @@ class Linter {
       const isBracket = allBrackets.some((check) => el.includes(check));
       if (isBracket) {
         //Aktualizacja stacka kiedy jest on pusty lub pojawił się otwarty nawias
-        if (this.stack.isEmpty() || openBrackets.includes(el))
+        if (this.stack.length() === 0 || openBrackets.includes(el))
           this.stack.insert(el);
         if (closeBrackets.includes(el)) {
           if (complBrackets[el] === this.stack.read()) {
-            console.log("check");
             this.stack.remove();
           }
         }
       }
     }
-    if (!this.stack.isEmpty()) {
+    if (this.stack.length() === 1) {
       const topElement = this.stack.read();
       if (topElement !== undefined && openBrackets.includes(topElement))
         return console.log(code, "--> Missing closing bracket");
       if (topElement !== undefined && closeBrackets.includes(topElement))
         return console.log(code, "--> Missing opening bracket");
     }
-    if (this.stack.isEmpty()) return console.log(code, "--> Correct");
+    if (this.stack.length() > 1)
+      return console.log(code, "--> Invalid bracket");
+    if (this.stack.length() === 0) return console.log(code, "--> Correct");
   }
 }
 
 const code = new Linter();
 
-code.lint("Hell]o");
+code.lint("[He{ll])o");
