@@ -1,14 +1,25 @@
-//Implementation of linter
+//Implementation of basic linter
 //using stack data structure
+
+//Linter that checks syntax correcteness of using brackets
+//Three main err:
+//1. Invalid bracket, i.e. (something]
+//2. Lack of closing bracket, i.e. (something
+//3. Lack of opening bracket, i.e. something)
 
 //define stack
 //define three methods: read, insert, remove
 
 class Stack<T> {
-  stack: T[];
+  stack: T[] = [];
   constructor() {
     this.stack = [];
   }
+
+  isEmpty(): boolean {
+    return this.stack.length === 0;
+  }
+
   insert(item: T): void {
     //push
     this.stack.push(item);
@@ -30,17 +41,40 @@ class Linter {
     this.stack = new Stack<string>();
   }
 
-  lint(text: string) {
-    for (const el of text) {
-      const openBrackets = ["(", "[", "{"];
-      const isOpen = openBrackets.some((check) => el.includes(check));
-
-      if (isOpen) this.stack.insert(el);
-      console.log(this.stack);
+  lint(code: string) {
+    const openBrackets = ["(", "[", "{"];
+    const closeBrackets = [")", "]", "}"];
+    const allBrackets = [...openBrackets, ...closeBrackets];
+    const complBrackets: Record<string, string> = {
+      ")": "(",
+      "]": "[",
+      "}": "{",
+    };
+    for (const el of code) {
+      const isBracket = allBrackets.some((check) => el.includes(check));
+      if (isBracket) {
+        //Aktualizacja stacka kiedy jest on pusty lub pojawił się otwarty nawias
+        if (this.stack.isEmpty() || openBrackets.includes(el))
+          this.stack.insert(el);
+        if (closeBrackets.includes(el)) {
+          if (complBrackets[el] === this.stack.read()) {
+            console.log("check");
+            this.stack.remove();
+          }
+        }
+      }
     }
+    if (!this.stack.isEmpty()) {
+      const topElement = this.stack.read();
+      if (topElement !== undefined && openBrackets.includes(topElement))
+        return console.log(code, "--> Missing closing bracket");
+      if (topElement !== undefined && closeBrackets.includes(topElement))
+        return console.log(code, "--> Missing opening bracket");
+    }
+    if (this.stack.isEmpty()) return console.log(code, "--> Correct");
   }
 }
 
 const code = new Linter();
 
-code.lint("(He[ll[o");
+code.lint("Hell]o");
