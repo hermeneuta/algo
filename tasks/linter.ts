@@ -6,34 +6,7 @@
 //1. Invalid bracket, i.e. (something]
 //2. Lack of closing bracket, i.e. (something
 //3. Lack of opening bracket, i.e. something)
-
-//define stack
-//define three methods: read, insert, remove
-
-class Stack<T> {
-  stack: T[] = [];
-  constructor() {
-    this.stack = [];
-  }
-
-  length(): number {
-    return this.stack.length;
-  }
-
-  insert(item: T): void {
-    //push
-    this.stack.push(item);
-  }
-  remove(): T | undefined {
-    //pop
-    return this.stack.pop();
-  }
-  read(): T | undefined {
-    return this.stack.length > 0
-      ? this.stack[this.stack.length - 1]
-      : undefined;
-  }
-}
+import Stack from "./classes/stack";
 
 class Linter {
   private stack: Stack<string>;
