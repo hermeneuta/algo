@@ -50,3 +50,8 @@
 
 - Inserting element to the queue is called **enqueue**
 - Removing element from the queue is called **dequeuing**
+
+### Recursion
+
+- It is a function that is calling itself. Recursion have base case that prevent it from infinite loop.
+- It works based on stack (LIFO). The whole process of recursion is called **call stack**. It is because before completed stack, it calls functions n times.
