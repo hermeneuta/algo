@@ -55,3 +55,8 @@
 
 - It is a function that is calling itself. Recursion have base case that prevent it from infinite loop.
 - It works based on stack (LIFO). The whole process of recursion is called **call stack**. It is because before completed stack, it calls functions n times.
+
+#### Where it is used?
+
+- to repeatedly execute a task
+- performing a calculation based on a subproblem
