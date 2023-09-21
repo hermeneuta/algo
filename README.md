@@ -56,7 +56,16 @@
 - It is a function that is calling itself. Recursion have base case that prevent it from infinite loop.
 - It works based on stack (LIFO). The whole process of recursion is called **call stack**. It is because before completed stack, it calls functions n times.
 
+#### Where it shines?
+
+- When you have problem with undefined level of depth
+
 #### Where it is used?
 
 - to repeatedly execute a task
 - performing a calculation based on a subproblem
+
+#### Two recursion strategies:
+
+- Bottom-up
+- Top-down
